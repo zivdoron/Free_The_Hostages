@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Circle : MonoBehaviour
 {
-    [SerializeField] float shrinkPerFrame;
+    [SerializeField] CircleAnimator circleAnimator;
 
-    bool isFree;
+    [SerializeField] float shrinkPerFrame;
+    [SerializeField] float minSize;
+
+    bool isFree = false;
+    bool isDisappearing = false;
     private void FixedUpdate()
     {
         if (!isFree)
         {
             transform.localScale -= Vector3.one * shrinkPerFrame;
-            if (transform.localScale.magnitude < 0.5)
+            if (transform.localScale.magnitude < minSize)
             {
                 Disappear();
             }
@@ -24,7 +28,7 @@ public class Circle : MonoBehaviour
         if (collision.gameObject.CompareTag("Spike"))
         {
             print("collided with spike");
-            Disappear();
+            StartDisappearingSession();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -32,7 +36,10 @@ public class Circle : MonoBehaviour
         if (collision.gameObject.CompareTag("Room"))
         {
             print("Collided with Room");
-            FreeCircle();
+            if (!isFree)
+            {
+                FreeCircle();
+            }
         }
     }
 
@@ -41,7 +48,13 @@ public class Circle : MonoBehaviour
         ScoreManager.instance.AddFreedCircle(this);
         isFree = true;
     }
-    void Disappear()
+
+    void StartDisappearingSession()
+    {
+        isDisappearing = true;
+        circleAnimator.StartDisappearingAnim();
+    }
+    public void Disappear()
     {
         ScoreManager.instance.AddMissedCircle(this);
         Destroy(gameObject);

@@ -27,6 +27,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (!freedCircles.Exists(c => c == circle))
         {
+            Debug.Log("circle added");
             freedCircles.Add(circle);
         }
         if(freedCircles.Count == circlesInRoom)

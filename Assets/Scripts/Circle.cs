@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Circle : MonoBehaviour
+public class Circle : MonoBehaviour, IPointerEnterHandler
 {
     [SerializeField] CircleAnimator circleAnimator;
+    Rigidbody2D rb;
 
     [SerializeField] float shrinkPerFrame;
     [SerializeField] float minSize;
@@ -43,7 +45,7 @@ public class Circle : MonoBehaviour
         }
     }
 
-    void FreeCircle()
+    public void FreeCircle()
     {
         ScoreManager.instance.AddFreedCircle(this);
         isFree = true;
@@ -58,5 +60,9 @@ public class Circle : MonoBehaviour
     {
         ScoreManager.instance.AddMissedCircle(this);
         Destroy(gameObject);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
     }
 }

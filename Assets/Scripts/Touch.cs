@@ -12,7 +12,6 @@ public class Touch : MonoBehaviour
         {
             return;
         }
-        print(Input.touches[0].phase);
         if(Input.GetTouch(0).phase == TouchPhase.Began)
         {
             RaycastHit2D[] hits;

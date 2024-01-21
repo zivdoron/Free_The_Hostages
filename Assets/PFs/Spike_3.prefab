@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 4741279595154403339, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: daf3a08e505c5624cbb4fbeda883303c, type: 3}
+      objectReference: {fileID: 21300000, guid: 06d7ca51836dc404db7c758c6270a71b, type: 3}
     - target: {fileID: 4741279595154403339, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
       propertyPath: m_Color.b
       value: 0.20754719
@@ -31,6 +31,14 @@ PrefabInstance:
     - target: {fileID: 6449079148568659993, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
       propertyPath: m_Name
       value: Spike_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011447189794747855, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
+      propertyPath: m_Size.x
+      value: 2.4893622
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011447189794747855, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.008466482
       objectReference: {fileID: 0}
     - target: {fileID: 8731506280667935328, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
       propertyPath: m_LocalPosition.x

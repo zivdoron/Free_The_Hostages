@@ -8,11 +8,17 @@ public class Room : MonoBehaviour
 
     [SerializeField] List<Wall> walls;
 
-    
-    private void Start()
-    {
-        
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Circle"))
+    //    {
+    //        print("Collided with Room");
+            
+    //        collision.gameObject.GetComponent<Circle>().FreeCircle();
+            
+    //    }
+    //}
+
 
     //void SpawnWalls()
     //{

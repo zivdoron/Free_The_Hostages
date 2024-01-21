@@ -7,7 +7,7 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager instance;
 
     List<Circle> freedCircles = new List<Circle>();
-    List<Circle> missedCircles = new List<Circle>();
+    int missedCircles = 0;
 
     int circlesInRoom;
     private void Start()
@@ -18,22 +18,17 @@ public class ScoreManager : MonoBehaviour
 
     public void AddMissedCircle(Circle circle)
     {
-        if(!missedCircles.Exists(c => c == circle))
-        {
-            missedCircles.Add(circle);
-        }
+        missedCircles++;
+        CheckEndCondition();
     }
     public void AddFreedCircle(Circle circle)
     {
+            Debug.Log("circle added");
         if (!freedCircles.Exists(c => c == circle))
         {
-            Debug.Log("circle added");
             freedCircles.Add(circle);
         }
-        if(freedCircles.Count == circlesInRoom)
-        {
-            UIManager.instance.winningPanel.SetActive(true);
-        }
+        CheckEndCondition();
 
     }
 
@@ -41,5 +36,14 @@ public class ScoreManager : MonoBehaviour
     {
         circlesInRoom = FindObjectsOfType(typeof(Circle)).Length;
         Debug.Log("circles found in room: " + circlesInRoom);
+    }
+
+    void CheckEndCondition()
+    {
+        if(missedCircles + freedCircles.Count >= circlesInRoom)
+        {
+            UIManager.instance.ShowRestartPanel(true);
+            UIManager.instance.winningPanel.SetActive(true);
+        }
     }
 }

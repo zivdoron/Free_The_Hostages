@@ -30,15 +30,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6449079148568659993, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
       propertyPath: m_Name
-      value: Spike_3
+      value: Spike_Horizontal
       objectReference: {fileID: 0}
     - target: {fileID: 7011447189794747855, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
       propertyPath: m_Size.x
       value: 2.4893622
       objectReference: {fileID: 0}
     - target: {fileID: 7011447189794747855, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
+      propertyPath: m_Size.y
+      value: 2.2445772
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011447189794747855, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
       propertyPath: m_Offset.x
       value: -0.008466482
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011447189794747855, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.044416785
       objectReference: {fileID: 0}
     - target: {fileID: 8731506280667935328, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
       propertyPath: m_LocalPosition.x
@@ -80,8 +88,60 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8941905398668731524, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6449079148568659993, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 2951177493952989799}
+    - targetCorrespondingSourceObject: {fileID: 6449079148568659993, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2931571388838676318}
   m_SourcePrefab: {fileID: 100100000, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
+--- !u!1 &7391393681708544308 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6449079148568659993, guid: 6f05f3eaa777f754f8b9a21a1de9f337, type: 3}
+  m_PrefabInstance: {fileID: 4606120519469480237}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2951177493952989799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7391393681708544308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e544e5100a55c9459088d3f6a08736c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.01
+--- !u!50 &2931571388838676318
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7391393681708544308}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7

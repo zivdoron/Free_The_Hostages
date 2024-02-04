@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     public GameObject winningPanel;
 
     [SerializeField] GameObject restartPanel;
+
     private void Start()
     {
         instance = this;

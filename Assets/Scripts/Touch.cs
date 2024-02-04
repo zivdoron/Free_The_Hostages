@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Touch : MonoBehaviour
 {
-    [SerializeField] Camera camera;
+    [SerializeField] Camera cam;
     Circle circle;
     void Update()
     {
@@ -15,7 +15,7 @@ public class Touch : MonoBehaviour
         if(Input.GetTouch(0).phase == TouchPhase.Began)
         {
             RaycastHit2D[] hits;
-            hits = Physics2D.RaycastAll(camera.ScreenToWorldPoint( Input.GetTouch(0).position), Vector2.zero, ContactFilter2D.NormalAngleUpperLimit);
+            hits = Physics2D.RaycastAll(cam.ScreenToWorldPoint( Input.GetTouch(0).position), Vector2.zero, ContactFilter2D.NormalAngleUpperLimit);
             if(hits != null)
                 if(hits.Length > 0)
                 {
@@ -32,7 +32,7 @@ public class Touch : MonoBehaviour
         }
         if(Input.GetTouch(0).phase == TouchPhase.Moved && circle != null)
         {
-            circle.gameObject.transform.position = camera.ScreenToWorldPoint(Input.GetTouch(0).position) + Vector3.forward * 10;
+            circle.gameObject.transform.position = cam.ScreenToWorldPoint(Input.GetTouch(0).position) + Vector3.forward * 10;
         }
         if(Input.GetTouch(0).phase == TouchPhase.Ended)
         {

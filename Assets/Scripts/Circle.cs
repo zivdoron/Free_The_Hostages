@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Circle : MonoBehaviour, IPointerEnterHandler
+public class Circle : MonoBehaviour, IPointerEnterHandler, IRoomElement
 {
     [SerializeField] CircleAnimator circleAnimator;
     Rigidbody2D rb;
@@ -13,9 +13,13 @@ public class Circle : MonoBehaviour, IPointerEnterHandler
 
     bool isFree = false;
     bool isDisappearing = false;
+
+    bool paused = true;
+    public bool Paused => paused;
+
     private void FixedUpdate()
     {
-        if (!isFree)
+        if (!isFree && !paused)
         {
             transform.localScale -= Vector3.one * shrinkPerFrame;
             if (transform.localScale.magnitude < minSize)
@@ -64,5 +68,20 @@ public class Circle : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+    }
+
+    public void StartAction()
+    {
+        paused = false;
+    }
+
+    public void Pause()
+    {
+        paused = true;
+    }
+
+    public void Continue()
+    {
+        paused = false;
     }
 }

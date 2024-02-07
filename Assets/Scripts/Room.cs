@@ -5,24 +5,32 @@ using UnityEngine;
 public class Room : MonoBehaviour, ILevelElement
 {
     public static Room instance;
+
+    public static OnAction OnNewRoom = () => { };
     
     [SerializeField] Wall wall;
     public Transform freedCirclesLocation;
 
     List<IRoomElement> roomElements = new List<IRoomElement>();
-    private void Awake()
+    List<ExtendingSpike> extendingSpikes = new List<ExtendingSpike>();
+    private void OnEnable()
     {
-        
         instance = this;
+        LevelManager.OnLevelStart += () => LevelManager.instance.Register(this);
+        Invoke("InvokeNewRoom", 0.5f);
     }
-    private void Start()
+    void InvokeNewRoom()
     {
-        LevelManager.instance.Register(this);
+        OnNewRoom.Invoke();
     }
+    
     public void StartLevel()
     {
         Debug.Log("room starts");
+        print("elements in room: " + roomElements.Count);
         roomElements.ForEach(e => e.StartAction());
+        if (extendingSpikes.Count > 0)
+            extendingSpikes[0].Extend();
     }
     //private void OnTriggerExit2D(Collider2D collision)
     //{
@@ -39,11 +47,16 @@ public class Room : MonoBehaviour, ILevelElement
         Debug.Log("room element registered");
         roomElements.Add(element);
     }
+    public void SpikeRegister(ExtendingSpike spike)
+    {
+        if (!extendingSpikes.Exists(s => s == spike))
+            extendingSpikes.Add(spike);
+    }
     public void NotifyFinishExtend(ExtendingSpike spike)
     {
-        if (roomElements.IndexOf(spike) + 1 == roomElements.Count)
+        if (extendingSpikes.IndexOf(spike) + 1 == extendingSpikes.Count)
             return;
-        roomElements[(roomElements.IndexOf(spike) + 1)].StartAction();
+        extendingSpikes[(extendingSpikes.IndexOf(spike) + 1)].Extend();
     }
 
     public void Pause()

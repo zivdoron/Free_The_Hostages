@@ -13,9 +13,10 @@ public class ExtendingSpike : MonoBehaviour, IRoomElement
     bool paused = false;
     public bool Paused => paused;
 
-    private void Start()
+    private void OnEnable()
     {
-        RegisterToRoom();
+        Room.OnNewRoom += RegisterToRoom;
+        
     }
     public void RegisterToRoom()
     {
@@ -56,7 +57,7 @@ public class ExtendingSpike : MonoBehaviour, IRoomElement
 
     public void StartAction()
     {
-        Extend();
+        Room.instance.SpikeRegister(this);
     }
 }
 public delegate void OnAction();

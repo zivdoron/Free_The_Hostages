@@ -10,9 +10,9 @@ public class HorizontalSpike : Spike,IRoomElement
     bool paused = true;
     public bool Paused => paused;
 
-    private void Start()
+    private void OnEnable()
     {
-        Room.instance.Register(this);
+        Room.OnNewRoom += () => Room.instance.Register(this);
     }
     // Update is called once per frame
     void Update()

@@ -20,13 +20,13 @@ public class LevelManager : MonoBehaviour
 
     List<ILevelElement> levelElements = new List<ILevelElement>();
 
-    private void Awake()
+    private void OnEnable()
     {
         instance = this;
     }
     private void Start()
     {
-        Invoke("StartLevel", 1);
+        StartLevel();
     }
     public void Pause()
     {
@@ -34,14 +34,20 @@ public class LevelManager : MonoBehaviour
     }
     public void StartLevel()
     {
+        SceneManager.LoadSceneAsync(currentLevel, LoadSceneMode.Additive).completed += async =>
+        Invoke("StartLevelInternal", 1f);
+    }
+    void StartLevelInternal()
+    {
         ClearNulls();
-        levelElements.ForEach(e => e.StartLevel());
-        SceneManager.LoadSceneAsync(currentLevel, LoadSceneMode.Additive);
-        OnLevelStart.Invoke();
+        print("elements in level: " + levelElements.Count);
+        
+            OnLevelStart.Invoke();
+            levelElements.ForEach(e => e.StartLevel());
     }
     public void Restart()
     {
-        SceneManager.UnloadSceneAsync(currentLevel);
+        SceneManager.UnloadScene(currentLevel);
         StartLevel();
     }
     public void LevelUp()

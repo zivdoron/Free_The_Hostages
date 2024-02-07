@@ -5,7 +5,9 @@ using UnityEngine;
 public class Room : MonoBehaviour, ILevelElement
 {
     public static Room instance;
+    
     [SerializeField] Wall wall;
+    public Transform freedCirclesLocation;
 
     List<IRoomElement> roomElements = new List<IRoomElement>();
     private void Awake()

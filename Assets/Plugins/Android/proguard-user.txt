@@ -1,0 +1,15 @@
+-keep class com.google.unity.** { ;}
+-keep public class com.google.** { *; }
+-keep class com.google.android.packageinstaller
+-keep class com.android.packageinstaller.PackageInstallerActivity
+-keep class bitter.jnibridge.* { *; }
+-keep class com.unity3d.player.* { *; }
+-keep interface com.unity3d.player.IUnityPlayerLifecycleEvents { *; }
+-keep class org.fmod.* { *; }
+-keep class com.google.androidgamesdk.ChoreographerCallback { *; }
+-keep class com.google.androidgamesdk.SwappyDisplayManager { *; }
+
+
+-keepattributes *Annotation*
+-ignorewarnings
+-dontobfuscate

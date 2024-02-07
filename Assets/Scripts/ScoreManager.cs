@@ -6,6 +6,8 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
 
+    
+
     List<Circle> freedCircles = new List<Circle>();
     int missedCircles = 0;
 
@@ -23,10 +25,12 @@ public class ScoreManager : MonoBehaviour
     }
     public void AddFreedCircle(Circle circle)
     {
-            Debug.Log("circle added");
         if (!freedCircles.Exists(c => c == circle))
         {
             freedCircles.Add(circle);
+            Destroy(circle.GetComponent<Collider2D>());
+            circle.transform.position = Room.instance.freedCirclesLocation.position + Vector3.right * 3f * circle.transform.localScale.x * freedCircles.Count;
+            circle.rb.velocity = Vector2.zero;
         }
         CheckEndCondition();
 

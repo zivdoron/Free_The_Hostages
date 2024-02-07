@@ -31,6 +31,8 @@ public class ExtendingSpike : MonoBehaviour, IRoomElement
         startingSize = transform.localScale;
         while(transform.localScale.x < (startingSize + Vector3.right * offset).x)
         {
+            if (this == null)
+                break;
             if(!paused)
                 transform.localScale += Vector3.right * scaleSpeed;
             yield return new WaitForFixedUpdate();

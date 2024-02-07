@@ -9,15 +9,14 @@ public class LevelManager : MonoBehaviour
     public static LevelManager instance;
 
     [SerializeField] LevelData[] levels;
-    int currentLevel = 0;
+    int currentLevel = 1;
 
     public static OnAction OnLevelStart = () => { };
     //public static OnAction OnLose = () => { };
     //public static OnAction OnWin = () => { };
 
-    Scene ActiveScene { get => GetLevel(currentLevel); }
-    Scene GetLevel(int levelNum) { return SceneManager.GetSceneByName("Level_" + levelNum); }
-    public float CompletionTime { get => levels[currentLevel].completionTime; }
+    
+    public float CompletionTime { get => levels[currentLevel - 1].completionTime; }
 
     List<ILevelElement> levelElements = new List<ILevelElement>();
 
@@ -37,18 +36,19 @@ public class LevelManager : MonoBehaviour
     {
         ClearNulls();
         levelElements.ForEach(e => e.StartLevel());
+        SceneManager.LoadSceneAsync(currentLevel, LoadSceneMode.Additive);
         OnLevelStart.Invoke();
     }
     public void Restart()
     {
-        SceneManager.UnloadScene(GetLevel(currentLevel + 1));
-        SceneManager.LoadScene(GetLevel(currentLevel + 1).buildIndex, LoadSceneMode.Additive);
+        SceneManager.UnloadSceneAsync(currentLevel);
+        StartLevel();
     }
     public void LevelUp()
     {
-        SceneManager.UnloadScene(GetLevel(currentLevel + 1));
+        SceneManager.UnloadSceneAsync(currentLevel);
         currentLevel++;
-        SceneManager.LoadScene(GetLevel(currentLevel + 1).buildIndex, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(currentLevel, LoadSceneMode.Additive);
         StartLevel();
     }
     public void EndLevel(bool win)

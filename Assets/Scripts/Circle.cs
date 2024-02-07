@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class Circle : MonoBehaviour, IPointerEnterHandler, IRoomElement
+public class Circle : MonoBehaviour, IRoomElement
 {
     [SerializeField] CircleAnimator circleAnimator;
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
 
     [SerializeField] float shrinkPerFrame;
     [SerializeField] float minSize;
@@ -16,6 +15,9 @@ public class Circle : MonoBehaviour, IPointerEnterHandler, IRoomElement
 
     bool paused = true;
     public bool Paused => paused;
+
+    bool isDead = false;
+    public bool IsDead { get => isDead; }
 
     private void FixedUpdate()
     {
@@ -30,10 +32,11 @@ public class Circle : MonoBehaviour, IPointerEnterHandler, IRoomElement
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print("collided");
+        //print("collided");
         if (collision.gameObject.CompareTag("Spike"))
         {
             print("collided with spike");
+            isDead = true;
             StartDisappearingSession();
         }
     }
@@ -41,8 +44,7 @@ public class Circle : MonoBehaviour, IPointerEnterHandler, IRoomElement
     {
         if (collision.gameObject.CompareTag("Room"))
         {
-            print("Collided with Room");
-            if (!isFree)
+            if (!isFree && !isDead)
             {
                 FreeCircle();
             }
@@ -51,6 +53,7 @@ public class Circle : MonoBehaviour, IPointerEnterHandler, IRoomElement
 
     public void FreeCircle()
     {
+        
         ScoreManager.instance.AddFreedCircle(this);
         isFree = true;
     }
@@ -66,9 +69,7 @@ public class Circle : MonoBehaviour, IPointerEnterHandler, IRoomElement
         Destroy(gameObject);
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-    }
+    
 
     public void StartAction()
     {

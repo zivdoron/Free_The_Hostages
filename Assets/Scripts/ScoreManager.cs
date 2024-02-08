@@ -47,10 +47,12 @@ public class ScoreManager : MonoBehaviour,ILevelElement
         if(freedCircles.Count == circlesInRoom)
         {
             LevelManager.instance.EndLevel(true);
+            return;
         }
         if(missedCircles + freedCircles.Count >= circlesInRoom)
         {
             LevelManager.instance.EndLevel(false);
+            return;
         }
     }
     public void EndLevel()

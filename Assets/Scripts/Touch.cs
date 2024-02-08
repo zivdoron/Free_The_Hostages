@@ -60,6 +60,7 @@ public class Touch : MonoBehaviour
         print("performed");
         if (circle != null)
         {
+            if(circle.IsTouchable)
             circle.rb.MovePosition(cam.ScreenToWorldPoint(context.ReadValue<Vector2>()) + Vector3.forward * 10);
             //circle.rb.velocity = cam.ScreenToWorldPoint(Input.GetTouch(0).position) + Vector3.forward * 10 - circle.transform.position;
         }

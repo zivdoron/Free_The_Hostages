@@ -11,8 +11,9 @@ public class Clock : MonoBehaviour, ILevelElement
     [SerializeField] Image image;
     [SerializeField] TextMeshProUGUI text;
 
-    float startTime;
+    float timeUntilCompletion;
     float timePast;
+    float TimeRemaining { get => timeUntilCompletion - timePast; }
 
     bool paused = false;
     bool running = false;
@@ -27,22 +28,27 @@ public class Clock : MonoBehaviour, ILevelElement
         if (Running)
         {
             timePast += Time.deltaTime;
-            image.fillAmount = 1 - (timePast / startTime);
-            text.text = ShowMinutes() + (int)(startTime - timePast) % 60;
+            image.fillAmount = 1 - (timePast / timeUntilCompletion);
+            text.text = ShowMinutes() + (int)TimeRemaining % 60;
+            if(TimeRemaining < 0)
+            {
+                StopClock();
+                LevelManager.instance.EndLevel(false);
+            }
         }
     }
     string ShowMinutes()
     {
-        if((int)(startTime - timePast) / 60 > 0)
+        if((int)TimeRemaining / 60 > 0)
         {
-            return (int)(startTime - timePast) / 60 + ":";
+            return (int)TimeRemaining / 60 + ":";
         }
         return string.Empty;
     }
     public void StartClock(float time)
     {
         ResetClock();
-        startTime = time;
+        timeUntilCompletion = time;
         paused = false;
         running = true;
     }
@@ -64,7 +70,7 @@ public class Clock : MonoBehaviour, ILevelElement
     }
     void ResetClock()
     {
-        startTime = 0;
+        timeUntilCompletion = 0;
         timePast = 0;
         image.fillAmount = 0;
         paused = true;

@@ -23,7 +23,8 @@ public class Room : MonoBehaviour, ILevelElement
 
     public List<Circle> GetCircles()
     {
-        return roomElements/*.FindAll(e => e.GetType() == typeof(Circle))*/.OfType<Circle>().ToList();
+        List<Circle> circles = roomElements/*.FindAll(e => e.GetType() == typeof(Circle))*/.OfType<Circle>().ToList();
+        return circles;
     }
 
 

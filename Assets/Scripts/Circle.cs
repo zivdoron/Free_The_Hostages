@@ -19,17 +19,22 @@ public class Circle : MonoBehaviour, IRoomElement
     bool isDead = false;
     public bool IsDead { get => isDead; }
 
-    private void FixedUpdate()
+    public bool IsTouchable { get => !paused && !isDead && !isFree; }
+    private void OnEnable()
     {
-        if (!isFree && !paused)
-        {
-            transform.localScale -= Vector3.one * shrinkPerFrame;
-            if (transform.localScale.magnitude < minSize)
-            {
-                Disappear();
-            }
-        }
+        Room.OnNewRoom += () => Room.instance.Register(this);
     }
+    //private void FixedUpdate()
+    //{
+    //    if (!isFree && !paused)
+    //    {
+    //        transform.localScale -= Vector3.one * shrinkPerFrame;
+    //        if (transform.localScale.magnitude < minSize)
+    //        {
+    //            Disappear();
+    //        }
+    //    }
+    //}
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //print("collided");

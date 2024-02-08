@@ -6,9 +6,10 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
-    public GameObject winningPanel;
+    [SerializeField] GameObject winningPanel;
 
     [SerializeField] GameObject restartPanel;
+    [SerializeField] GameObject levelEndsPanel;
 
     private void Start()
     {
@@ -17,9 +18,11 @@ public class UIManager : MonoBehaviour
     public void ShowRestartPanel(bool show)
     {
         restartPanel.SetActive(show);
+        levelEndsPanel.SetActive(show);
     }
     public void ShowWinningPanel(bool show)
     {
         winningPanel.SetActive(show);
+        levelEndsPanel.SetActive(show);
     }
 }

@@ -7,21 +7,24 @@ public class Touch : MonoBehaviour
 {
     [SerializeField] Camera cam;
     MainInputActions inputActions;
+    Touchscreen touch;
 
     Circle circle;
 
     bool started = false;
     private void Start()
     {
+        touch = Touchscreen.current;
+        print("touch is null: " + touch == null);
         inputActions = new MainInputActions();
         inputActions.Player.Look.performed += BeginTouch;
         inputActions.Player.Look.performed += Move;
+        
         inputActions.Enable();
     }
     private void Update()
     {
-        started = !Touchscreen.current.IsActuated();
-        if (!started)
+        if(inputActions.Player.Fire.phase != InputActionPhase.Started && inputActions.Player.Fire.phase != InputActionPhase.Performed && started)
             EndTouch();
     }
     void BeginTouch(InputAction.CallbackContext context)
@@ -64,6 +67,7 @@ public class Touch : MonoBehaviour
     void EndTouch()
     {
         print("cancelled");
+        started = false;
         circle = null;
     }
 }

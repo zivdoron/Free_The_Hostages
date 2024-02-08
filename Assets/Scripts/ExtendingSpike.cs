@@ -32,7 +32,7 @@ public class ExtendingSpike : MonoBehaviour, IRoomElement
         startingSize = transform.localScale;
         while(transform.localScale.x < (startingSize + Vector3.right * offset).x)
         {
-            if (this == null)
+            if (gameObject == null)
                 break;
             if(!paused)
                 transform.localScale += Vector3.right * scaleSpeed;
@@ -58,6 +58,15 @@ public class ExtendingSpike : MonoBehaviour, IRoomElement
     public void StartAction()
     {
         Room.instance.SpikeRegister(this);
+    }
+    public void EndAction()
+    {
+        paused = true;
+        StopCoroutine(Extension());
+    }
+    private void OnDestroy()
+    {
+        StopCoroutine(Extension());
     }
 }
 public delegate void OnAction();

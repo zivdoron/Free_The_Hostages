@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : MonoBehaviour,ILevelElement
 {
     public static ScoreManager instance;
 
@@ -14,8 +14,8 @@ public class ScoreManager : MonoBehaviour
     int circlesInRoom;
     private void Start()
     {
-        CountCircles();
         instance = this;
+        LevelManager.OnLevelStart += () => LevelManager.instance.Register(this);
     }
 
     public void AddMissedCircle(Circle circle)
@@ -38,16 +38,40 @@ public class ScoreManager : MonoBehaviour
 
     void CountCircles()
     {
-        circlesInRoom = FindObjectsOfType(typeof(Circle)).Length;
+        circlesInRoom = Room.instance.GetCircles().Count;
         Debug.Log("circles found in room: " + circlesInRoom);
     }
 
     void CheckEndCondition()
     {
+        if(freedCircles.Count == circlesInRoom)
+        {
+            LevelManager.instance.EndLevel(true);
+        }
         if(missedCircles + freedCircles.Count >= circlesInRoom)
         {
-            UIManager.instance.ShowRestartPanel(true);
-            UIManager.instance.winningPanel.SetActive(true);
+            LevelManager.instance.EndLevel(false);
         }
+    }
+    public void EndLevel()
+    {
+        freedCircles.Clear();
+        circlesInRoom = 0;
+        missedCircles = 0;
+    }
+
+    public void StartLevel()
+    {
+        CountCircles();
+    }
+
+    public void Pause()
+    {
+        
+    }
+
+    public void Continue()
+    {
+        
     }
 }

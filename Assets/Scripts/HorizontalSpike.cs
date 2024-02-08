@@ -37,6 +37,10 @@ public class HorizontalSpike : Spike,IRoomElement
     {
         paused = false;
     }
+    public void EndAction()
+    {
+        paused = true;
+    }
 
     public void Pause()
     {

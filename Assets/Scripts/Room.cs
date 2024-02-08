@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Room : MonoBehaviour, ILevelElement
 {
@@ -19,6 +20,13 @@ public class Room : MonoBehaviour, ILevelElement
         LevelManager.OnLevelStart += () => LevelManager.instance.Register(this);
         Invoke("InvokeNewRoom", 0.5f);
     }
+
+    public List<Circle> GetCircles()
+    {
+        return roomElements/*.FindAll(e => e.GetType() == typeof(Circle))*/.OfType<Circle>().ToList();
+    }
+
+
     void InvokeNewRoom()
     {
         OnNewRoom.Invoke();
@@ -28,9 +36,16 @@ public class Room : MonoBehaviour, ILevelElement
     {
         Debug.Log("room starts");
         print("elements in room: " + roomElements.Count);
+        ClearNulls();
         roomElements.ForEach(e => e.StartAction());
         if (extendingSpikes.Count > 0)
             extendingSpikes[0].Extend();
+    }
+    public void EndLevel()
+    {
+        roomElements.ForEach(e => e.EndAction());
+        roomElements.Clear();
+        OnNewRoom = () => { };
     }
     //private void OnTriggerExit2D(Collider2D collision)
     //{
@@ -56,7 +71,9 @@ public class Room : MonoBehaviour, ILevelElement
     {
         if (extendingSpikes.IndexOf(spike) + 1 == extendingSpikes.Count)
             return;
-        extendingSpikes[(extendingSpikes.IndexOf(spike) + 1)].Extend();
+        if (extendingSpikes[extendingSpikes.IndexOf(spike) + 1].gameObject == null)
+            return;
+        extendingSpikes[extendingSpikes.IndexOf(spike) + 1].Extend();
     }
 
     public void Pause()
@@ -69,7 +86,11 @@ public class Room : MonoBehaviour, ILevelElement
     }
 
 
-
+    void ClearNulls()
+    {
+        roomElements.RemoveAll( e => e == null);
+        extendingSpikes.RemoveAll(e => e == null);
+    }
 
     //void SpawnWalls()
     //{
@@ -83,6 +104,7 @@ public interface IRoomElement
 {
     bool Paused { get; }
     public void StartAction();
+    public void EndAction();
     public void Pause();
     public void Continue();
 

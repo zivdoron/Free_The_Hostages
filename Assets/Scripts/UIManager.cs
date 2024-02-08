@@ -18,4 +18,8 @@ public class UIManager : MonoBehaviour
     {
         restartPanel.SetActive(show);
     }
+    public void ShowWinningPanel(bool show)
+    {
+        winningPanel.SetActive(show);
+    }
 }

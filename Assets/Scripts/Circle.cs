@@ -75,6 +75,10 @@ public class Circle : MonoBehaviour, IRoomElement
     {
         paused = false;
     }
+    public void EndAction()
+    {
+        paused = true;
+    }
 
     public void Pause()
     {

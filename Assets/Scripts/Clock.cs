@@ -67,6 +67,7 @@ public class Clock : MonoBehaviour, ILevelElement
         startTime = 0;
         timePast = 0;
         image.fillAmount = 0;
+        paused = true;
     }
     public void Hide()
     {
@@ -80,6 +81,10 @@ public class Clock : MonoBehaviour, ILevelElement
     public void StartLevel()
     {
         StartClock(LevelManager.instance.CompletionTime);
+    }
+    public void EndLevel()
+    {
+        ResetClock();
     }
 
     public void Pause()

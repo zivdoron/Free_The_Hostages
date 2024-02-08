@@ -59,6 +59,16 @@ public class LevelManager : MonoBehaviour
     }
     public void EndLevel(bool win)
     {
+        levelElements.ForEach(e => e.EndLevel());
+        OnLevelStart = () => { };
+        if (win)
+        {
+            UIManager.instance.ShowWinningPanel(true);
+        }
+        else
+        {
+            UIManager.instance.ShowRestartPanel(true);
+        }
 
     }
     void ClearNulls()
@@ -89,6 +99,7 @@ public class LevelManager : MonoBehaviour
 public interface ILevelElement
 {
     public void StartLevel();
+    public void EndLevel();
     public void Register()
     {
         LevelManager.instance.Register(this);

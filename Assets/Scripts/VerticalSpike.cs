@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HorizontalSpike : Spike,IRoomElement
+public class VerticalSpike : Spike,IRoomElement
 {
     [SerializeField] Rigidbody2D rb;
-    [SerializeField] bool rightDir = false;
+    [SerializeField] bool upDir = false;
     [SerializeField] float speed = .05f;
 
     bool paused = true;
@@ -20,17 +20,17 @@ public class HorizontalSpike : Spike,IRoomElement
     {
         if (!paused)
         {
-            if (rightDir)
-                rb.MovePosition(transform.position + Vector3.right * speed);
-            if (!rightDir)
-                rb.MovePosition(transform.position + Vector3.left * speed);
+            if (upDir)
+                rb.MovePosition(transform.position + Vector3.up * speed);
+            if (!upDir)
+                rb.MovePosition(transform.position + Vector3.down * speed);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Spike"))
         {
-            rightDir = !rightDir;
+            upDir = !upDir;
         }
     }
 
@@ -52,4 +52,5 @@ public class HorizontalSpike : Spike,IRoomElement
     {
         paused = false;
     }
+
 }

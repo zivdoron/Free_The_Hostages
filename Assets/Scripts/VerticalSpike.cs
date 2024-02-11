@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VerticalSpike : Spike,IRoomElement
+public class VerticalSpike : MovingSpike,IRoomElement
 {
     [SerializeField] Rigidbody2D rb;
     [SerializeField] bool upDir = false;
@@ -30,7 +30,10 @@ public class VerticalSpike : Spike,IRoomElement
     {
         if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Spike"))
         {
-            upDir = !upDir;
+            if (manager != null)
+                manager.NotifyCollision();
+            else
+                upDir = !upDir;
         }
     }
 
@@ -53,4 +56,8 @@ public class VerticalSpike : Spike,IRoomElement
         paused = false;
     }
 
+    public override void ChangeDirection()
+    {
+        upDir = !upDir;
+    }
 }

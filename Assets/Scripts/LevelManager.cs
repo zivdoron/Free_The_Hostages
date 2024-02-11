@@ -54,7 +54,6 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.UnloadSceneAsync(currentLevel);
         currentLevel++;
-        SceneManager.LoadSceneAsync(currentLevel, LoadSceneMode.Additive);
         StartLevel();
     }
     public void EndLevel(bool win)

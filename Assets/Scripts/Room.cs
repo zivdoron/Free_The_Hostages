@@ -37,13 +37,16 @@ public class Room : MonoBehaviour, ILevelElement
     {
         Debug.Log("room starts");
         print("elements in room: " + roomElements.Count);
+        instance = this;
         ClearNulls();
         roomElements.ForEach(e => e.StartAction());
         if (extendingSpikes.Count > 0)
             extendingSpikes[0].Extend();
+        ScoreManager.instance.SetCircles(GetCircles().Count);
     }
     public void EndLevel()
     {
+        ClearNulls();
         roomElements.ForEach(e => e.EndAction());
         roomElements.Clear();
         OnNewRoom = () => { };
@@ -79,10 +82,12 @@ public class Room : MonoBehaviour, ILevelElement
 
     public void Pause()
     {
+        ClearNulls();
         roomElements.ForEach(e => e.Pause());
     }
     public void Continue()
     {
+        ClearNulls();
         roomElements.ForEach(e => e.Continue());
     }
 

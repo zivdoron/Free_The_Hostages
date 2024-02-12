@@ -20,11 +20,16 @@ public class ScoreManager : MonoBehaviour,ILevelElement
 
     public void AddMissedCircle(Circle circle)
     {
-        missedCircles++;
-        CheckEndCondition();
+        if (LevelManager.instance.LevelInProgress)
+        {
+            missedCircles++;
+            CheckEndCondition();
+        }
     }
     public void AddFreedCircle(Circle circle)
     {
+        if (!LevelManager.instance.LevelInProgress)
+            return;
         if (!freedCircles.Exists(c => c == circle))
         {
             freedCircles.Add(circle);
@@ -38,8 +43,11 @@ public class ScoreManager : MonoBehaviour,ILevelElement
 
     void CountCircles()
     {
-        circlesInRoom = Room.instance.GetCircles().Count;
         Debug.Log("circles found in room: " + circlesInRoom);
+    }
+    public void SetCircles(int circles)
+    {
+        circlesInRoom = circles;
     }
 
     void CheckEndCondition()
@@ -49,7 +57,7 @@ public class ScoreManager : MonoBehaviour,ILevelElement
             LevelManager.instance.EndLevel(true);
             return;
         }
-        if(missedCircles + freedCircles.Count >= circlesInRoom)
+        if(missedCircles > 0)
         {
             LevelManager.instance.EndLevel(false);
             return;
@@ -57,13 +65,17 @@ public class ScoreManager : MonoBehaviour,ILevelElement
     }
     public void EndLevel()
     {
+        ResetScore();
+    }
+    void ResetScore()
+    {
         freedCircles.Clear();
         circlesInRoom = 0;
         missedCircles = 0;
     }
-
     public void StartLevel()
     {
+        ResetScore();
         CountCircles();
     }
 

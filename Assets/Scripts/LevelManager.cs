@@ -10,6 +10,8 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] LevelData[] levels;
     int currentLevel = 1;
+    bool levelInProgress = false;
+    public bool LevelInProgress { get => levelInProgress; }
 
     public static OnAction OnLevelStart = () => { };
     //public static OnAction OnLose = () => { };
@@ -39,15 +41,16 @@ public class LevelManager : MonoBehaviour
     }
     void StartLevelInternal()
     {
-        ClearNulls();
+        levelInProgress = true;
         print("elements in level: " + levelElements.Count);
         
-            OnLevelStart.Invoke();
-            levelElements.ForEach(e => e.StartLevel());
+        OnLevelStart.Invoke();
+        ClearNulls();
+        levelElements.ForEach(e => e.StartLevel());
     }
     public void Restart()
     {
-        SceneManager.UnloadScene(currentLevel);
+        SceneManager.UnloadSceneAsync(currentLevel);
         StartLevel();
     }
     public void LevelUp()
@@ -58,6 +61,8 @@ public class LevelManager : MonoBehaviour
     }
     public void EndLevel(bool win)
     {
+        levelInProgress = false;
+        ClearNulls();
         levelElements.ForEach(e => e.EndLevel());
         OnLevelStart = () => { };
         if (win)
@@ -72,14 +77,7 @@ public class LevelManager : MonoBehaviour
     }
     void ClearNulls()
     {
-        for (int i = 0; i < levelElements.Count; i++)
-        {
-            if(levelElements[i] == null)
-            {
-                levelElements.RemoveAt(i);
-                i--;
-            }
-        }
+        levelElements.RemoveAll(e => e == null);
     }
 
     public void Register(ILevelElement levelElement)

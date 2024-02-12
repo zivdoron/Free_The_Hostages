@@ -55,6 +55,10 @@ public class Circle : MonoBehaviour, IRoomElement
             }
         }
     }
+    private void OnDisable()
+    {
+        isDead = true;
+    }
 
     public void FreeCircle()
     {

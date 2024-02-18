@@ -26,10 +26,6 @@ public class LevelManager : MonoBehaviour
     {
         instance = this;
     }
-    private void Start()
-    {
-        StartLevel();
-    }
     public void Pause()
     {
         levelElements.ForEach(e => e.Pause());

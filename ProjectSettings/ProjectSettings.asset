@@ -159,7 +159,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.DefaultCompany.Free_The_Hostages
     Lumin: com.DefaultCompany.com.unity.template.mobile2D
-    Standalone: com.DefaultCompany.com.unity.template.mobile2D
+    Standalone: com.DefaultCompany.Free-The-Hostages
     iPhone: com.DefaultCompany.com.unity.template.mobile2D
     tvOS: com.DefaultCompany.com.unity.template.mobile2D
   buildNumber:
@@ -168,8 +168,8 @@ PlayerSettings:
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
-  AndroidBundleVersionCode: 2
-  AndroidMinSdkVersion: 31
+  AndroidBundleVersionCode: 3
+  AndroidMinSdkVersion: 29
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -257,13 +257,13 @@ PlayerSettings:
   useCustomBaseGradleTemplate: 0
   useCustomGradlePropertiesTemplate: 0
   useCustomGradleSettingsTemplate: 0
-  useCustomProguardFile: 1
+  useCustomProguardFile: 0
   AndroidTargetArchitectures: 3
   AndroidTargetDevices: 1
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: D:/docs/unity_save/Builds/Free_The_Hostages/FreeThemNow.keystore
-  AndroidKeyaliasName: abcd
+  AndroidKeystoreName: D:/docs/unity_save/Builds/Free_The_Hostages/FreeThemOut.keystore
+  AndroidKeyaliasName: user
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0

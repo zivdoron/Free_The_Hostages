@@ -12,6 +12,7 @@ public class Touch : MonoBehaviour
     Circle circle;
 
     bool started = false;
+    bool starting = false;
     private void Start()
     {
         touch = Touchscreen.current;
@@ -19,6 +20,7 @@ public class Touch : MonoBehaviour
         inputActions = new MainInputActions();
         inputActions.Player.Look.performed += BeginTouch;
         inputActions.Player.Look.performed += Move;
+        inputActions.Player.Fire.performed += ctx => { if (!started) starting = true; };
         
         inputActions.Enable();
     }
@@ -29,11 +31,12 @@ public class Touch : MonoBehaviour
     }
     void BeginTouch(InputAction.CallbackContext context)
     {
-        if (started)
+        if (!starting)
             return;
 
         print("started");
         started = true;
+        starting = false;
         RaycastHit2D[] hits;
         hits = Physics2D.RaycastAll(cam.ScreenToWorldPoint(new Vector3(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y,0)), Vector2.zero, ContactFilter2D.NormalAngleUpperLimit);
         print("hits: " + hits.Length);
